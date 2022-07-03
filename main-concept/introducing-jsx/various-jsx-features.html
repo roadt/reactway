@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hello World</title>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="jsx-is-a-expression"></div>
+    <div id="jsx-attributes"></div>
+    <div id="jsx-specify-children"></div>
+    <div id="jsx-prevent-injection-attacks"></div>
+    <div id="jsx-represents-objects"></div>
+
+    <script type="text/babel">
+			const name = 'Josh Perez';
+			const element =   <h1>Hello, {name}!</h1>;
+
+      ReactDOM.render(
+			element, 
+			document.getElementById('root')
+      );
+
+    </script>
+
+		<script type="text/babel">
+			
+			const user = {
+			firstName: 'Harper',
+			lastName: 'Perez',
+			avatarUrl: 'https://images.chinahighlights.com/allpicture/2018/02/61f290b1627f459d98cbfebd_cut_800x500_70.jpg'
+			};
+
+			function formatName(user) {
+			return user.firstName  + ' ' + user.lastName;
+			}
+			function getGreeting(user) {
+				if (user) {
+					return 			<h1>Hello, {formatName(user)}! </h1>;
+				}
+				return <h1>Hello, Stranger.</h1>; 
+			}
+
+
+			//Jsx is a expression
+			ReactDOM.render(
+			<h1>{getGreeting(user)}<h1>,
+			document.getElementById('jsx-is-a-expression')
+			);
+
+			//Specifying Attributes with JSX
+			ReactDOM.render(
+			element,
+			document.getElementById('jsx-attributes')
+			);
+
+			//Specifying Children with JSX
+			element = (
+				<div>
+					<h1>Hello!</h1>
+					<h2>Good to see you here</h2>
+					</div>
+			)
+			ReactDOM.render(
+			element,
+			document.getElementById('jsx-specify-children')
+			);
+
+			//JSX Prevents Injection Attacks
+			const title = "<script>alert('xxx')</script>";
+			ReactDOM.render(
+			<h1>{title}</h1>,
+			document.getElementById('jsx-prevent-injection-attacks')
+			);
+
+			//JSX Represents Objects
+			element = {
+			type: 'h1',
+			props: {
+			className: 'greeting',
+			children: 'Hello, world!'
+			}
+			}
+			const title = "<script>alert('xxx')</script>";
+			ReactDOM.render(
+			element,
+			document.getElementById('jsx-represents-objects')
+			);
+
+
+		</script>
+
+
+
+
+    <!--
+      Note: this page is a great way to try React but it's not suitable for production.
+      It slowly compiles JSX with Babel in the browser and uses a large development build of React.
+
+      Read this section for a production-ready setup with JSX:
+      https://reactjs.org/docs/add-react-to-a-website.html#add-jsx-to-a-project
+
+      In a larger project, you can use an integrated toolchain that includes JSX instead:
+      https://reactjs.org/docs/create-a-new-react-app.html
+
+      You can also use React without JSX, in which case you can remove Babel:
+      https://reactjs.org/docs/react-without-jsx.html
+    -->
+  </body>
+</html>
