@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hello World</title>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+			function ActionLink() {
+			function handleClick(e) { e.preventDefault(); console.log('The link was clicked'); }
+			return (
+			<a href="#" onClick={handleClick}>Click me</a>
+			)
+			}
+
+			class Toggle extends React.Component {
+			constructor(props) {
+			super(props);
+			this.state = {isToggleOn: true}
+			this.handleClick = this.handleClick.bind(this);
+			}
+			handleClick() {
+			this.setState(state => ({ isToggleOn: !state.isToggleOn}) );
+			}
+			render() {
+			return (
+			<button onClick={this.handleClick}>{this.state.isToggleOn ? 'ON': 'OFF' }</button>
+			)
+			}
+			}
+
+			class LoggingButton extends React.Component {
+			handleClick = () => {
+			console.log('this is:', this);
+			}
+			render() {
+			return (
+			<button onClick={this.handleClick}>Click me</button>
+			)
+			}
+			}
+
+			class LoggingButton2 extends React.Component {
+			handleClick (){
+			console.log('this is:', this);
+			}
+			render() {
+			return (
+			<button onClick={() => this.handleClick()}>Click me</button>
+			)
+			}
+			}
+
+
+			function DeleteMeButton() {
+			function handleClick(e) { e.preventDefault();  console.log(e); e.target.parentNode.removeChild(e.target);}
+			return (
+			<a href="#" onClick={handleClick}>Delete me</a>
+			)
+			}
+
+
+      ReactDOM.render(
+			<div>
+			<ActionLink/>
+        <Toggle />
+			<LoggingButton/>
+			<LoggingButton2/>
+			<DeleteMeButton/>
+			</div>,
+        document.getElementById('root')
+      );
+
+
+    </script>
+    <!--
+      Note: this page is a great way to try React but it's not suitable for production.
+      It slowly compiles JSX with Babel in the browser and uses a large development build of React.
+
+      Read this section for a production-ready setup with JSX:
+      https://reactjs.org/docs/add-react-to-a-website.html#add-jsx-to-a-project
+
+      In a larger project, you can use an integrated toolchain that includes JSX instead:
+      https://reactjs.org/docs/create-a-new-react-app.html
+
+      You can also use React without JSX, in which case you can remove Babel:
+      https://reactjs.org/docs/react-without-jsx.html
+    -->
+  </body>
+</html>
